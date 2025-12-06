@@ -2,120 +2,104 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>İyi ki doğdun Hakan!</title>
+<title>İyi ki Doğdun Hakan!</title>
 <style>
     body {
         margin: 0;
-        height: 100vh;
-        background: linear-gradient(to bottom, #000000, #1a1a1a);
+        padding: 0;
         overflow: hidden;
-        font-family: "Poppins", sans-serif;
-        color: white;
-        text-align: center;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        font-family: Arial, sans-serif;
     }
 
-    /* Balon */
-    #balloon {
-        width: 150px;
+    /* Balonlar */
+    .balloon {
         position: absolute;
-        top: 60%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        animation: float 3s ease-in-out infinite;
-        cursor: pointer;
+        bottom: -150px;
+        width: 80px;
+        height: 100px;
+        background: radial-gradient(circle, #ff4d4d, #cc0000);
+        border-radius: 50% 50% 45% 45%;
+        animation: floatUp 6s linear infinite;
     }
 
-    @keyframes float {
-        0% { transform: translate(-50%, -48%); }
-        50% { transform: translate(-50%, -55%); }
-        100% { transform: translate(-50%, -48%); }
-    }
-
-    /* Patlama efekti */
-    .burst {
-        animation: burst 0.2s forwards;
-    }
-    @keyframes burst {
-        to { transform: scale(2); opacity: 0; }
+    @keyframes floatUp {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
     }
 
     /* Konfeti */
     .confetti {
-        position: fixed;
+        position: absolute;
         width: 10px;
-        height: 20px;
-        background: hsl(var(--hue), 90%, 60%);
-        top: -20px;
-        animation: fall 2.5s linear forwards;
+        height: 10px;
+        background: yellow;
+        animation: fall 3s linear infinite;
     }
 
     @keyframes fall {
-        to { transform: translateY(120vh) rotate(360deg); }
+        0% { transform: translateY(0) rotate(0); }
+        100% { transform: translateY(100vh) rotate(360deg); }
     }
 
-    /* Yazı */
-    .message {
-        opacity: 0;
-        font-size: 40px;
-        margin-top: 20vh;
-        animation: fadeIn 2s forwards;
-        text-shadow: 0 0 20px #ff0055;
+    /* Ortadaki kutu */
+    .center-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        text-shadow: 2px 2px 5px black;
     }
 
-    @keyframes fadeIn {
-        to { opacity: 1; }
+    .cake {
+        font-size: 120px;
     }
 
-    /* Pasta */
-    #cake {
-        width: 250px;
+    .text {
+        font-size: 32px;
         margin-top: 20px;
-        opacity: 0;
-        animation: cakeIn 2s 1s forwards;
-    }
-
-    @keyframes cakeIn {
-        to { opacity: 1; }
+        font-weight: bold;
     }
 </style>
 </head>
+
 <body>
 
-<img id="balloon" src="https://i.imgur.com/rQW5KHR.png">
-
-<h1 id="msg" class="message" style="display:none;">
-    🎉 İyi ki doğdun can dostum Hakan! 🎉<br>
-    Bu dünyaya senin gibi adamlar nadir gelir...
-</h1>
-
-<img id="cake" src="https://i.imgur.com/C7a0H6U.png" style="display:none;">
-
+<!-- Balonlar -->
 <script>
-const balloon = document.getElementById("balloon");
-const msg = document.getElementById("msg");
-const cake = document.getElementById("cake");
-
-balloon.addEventListener("click", () => {
-    balloon.classList.add("burst");
-    setTimeout(() => balloon.style.display = "none", 200);
-
-    // Yazı çıkar
-    msg.style.display = "block";
-
-    // Pasta çıkar
-    cake.style.display = "block";
-
-    // Konfeti patlat
-    for (let i = 0; i < 120; i++) {
-        let c = document.createElement("div");
-        c.className = "confetti";
-        c.style.left = Math.random() * 100 + "vw";
-        c.style.setProperty("--hue", Math.random() * 360);
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 3000);
-    }
-});
+for(let i = 0; i < 12; i++){
+    let b = document.createElement("div");
+    b.className = "balloon";
+    b.style.left = Math.random() * 100 + "vw";
+    
+    // renkler
+    let colors = ["#ff4d4d", "#4da6ff", "#66ff66", "#ffff66", "#ff66cc"];
+    b.style.background = "radial-gradient(circle, white, " + colors[Math.floor(Math.random()*colors.length)] + ")";
+    
+    b.style.animationDuration = (5 + Math.random()*4) + "s";
+    document.body.appendChild(b);
+}
 </script>
+
+<!-- Konfeti -->
+<script>
+for(let i = 0; i < 40; i++){
+    let c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = ["red","blue","yellow","green","purple"][Math.floor(Math.random()*5)];
+    c.style.animationDuration = (2 + Math.random()*3) + "s";
+    document.body.appendChild(c);
+}
+</script>
+
+<!-- ORTA YAZI VE PASTA -->
+<div class="center-box">
+    <div class="cake">🎂</div>
+    <div class="text">İyi ki doğdun can dostum Hakan 🎉</div>
+</div>
 
 </body>
 </html>
