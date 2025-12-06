@@ -2,53 +2,86 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Doğum Günü</title>
+<title>Sürpriz</title>
 <style>
     body {
         margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        overflow: hidden;
-    }
-
-    /* ---- İlk Sayfa ---- */
-    #startPage {
-        width: 100vw;
-        height: 100vh;
         background: black;
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        color: white;
+        font-family: Arial, sans-serif;
     }
 
-    #startBtn {
-        padding: 20px 40px;
+    #startPage {
+        text-align: center;
+    }
+
+    #startButton {
         background: red;
         color: white;
-        font-size: 28px;
+        padding: 20px 40px;
+        font-size: 24px;
         border: none;
         border-radius: 10px;
         cursor: pointer;
     }
 
-    /* ---- İkinci Sayfa ---- */
-    #mainPage {
+    #birthdayPage {
         display: none;
-        width: 100vw;
-        height: 100vh;
-        background: #111;
-        color: white;
         text-align: center;
-        overflow: hidden;
-        position: relative;
-    }
-
-    #message {
-        margin-top: 150px;
-        font-size: 40px;
+        font-size: 42px;
         font-weight: bold;
-        z-index: 10;
+        padding: 20px;
     }
 
-    /* ---- Konfeti ---- */
     .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: hsl(calc(360 * var(--hue)), 80%, 60%);
+        top: -20px;
+        animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(360deg);
+        }
+    }
+</style>
+</head>
+<body>
+
+<div id="startPage">
+    <button id="startButton">Sürpriz için tıkla 🎉</button>
+</div>
+
+<div id="birthdayPage">
+    🎉❤️ İYİ Kİ DOĞDUN GÖTÜNÜ YEDİĞİM HAKANIM ❤️🎉
+</div>
+
+<script>
+    document.getElementById("startButton").onclick = function() {
+        document.getElementById("startPage").style.display = "none";
+        document.getElementById("birthdayPage").style.display = "block";
+        startConfetti();
+    };
+
+    function startConfetti() {
+        for (let i = 0; i < 150; i++) {
+            let c = document.createElement("div");
+            c.classList.add("confetti");
+            c.style.left = Math.random() * 100 + "vw";
+            c.style.setProperty("--hue", Math.random());
+            c.style.animationDelay = Math.random() * 3 + "s";
+            document.body.appendChild(c);
+        }
+    }
+</script>
+
+</body>
+</html>
