@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>İyi ki doğdun Hakan!</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(to bottom, #000000, #1a1a1a);
+        overflow: hidden;
+        font-family: "Poppins", sans-serif;
+        color: white;
+        text-align: center;
+    }
+
+    /* Balon */
+    #balloon {
+        width: 150px;
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: float 3s ease-in-out infinite;
+        cursor: pointer;
+    }
+
+    @keyframes float {
+        0% { transform: translate(-50%, -48%); }
+        50% { transform: translate(-50%, -55%); }
+        100% { transform: translate(-50%, -48%); }
+    }
+
+    /* Patlama efekti */
+    .burst {
+        animation: burst 0.2s forwards;
+    }
+    @keyframes burst {
+        to { transform: scale(2); opacity: 0; }
+    }
+
+    /* Konfeti */
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 20px;
+        background: hsl(var(--hue), 90%, 60%);
+        top: -20px;
+        animation: fall 2.5s linear forwards;
+    }
+
+    @keyframes fall {
+        to { transform: translateY(120vh) rotate(360deg); }
+    }
+
+    /* Yazı */
+    .message {
+        opacity: 0;
+        font-size: 40px;
+        margin-top: 20vh;
+        animation: fadeIn 2s forwards;
+        text-shadow: 0 0 20px #ff0055;
+    }
+
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+
+    /* Pasta */
+    #cake {
+        width: 250px;
+        margin-top: 20px;
+        opacity: 0;
+        animation: cakeIn 2s 1s forwards;
+    }
+
+    @keyframes cakeIn {
+        to { opacity: 1; }
+    }
+</style>
+</head>
+<body>
+
+<img id="balloon" src="https://i.imgur.com/rQW5KHR.png">
+
+<h1 id="msg" class="message" style="display:none;">
+    🎉 İyi ki doğdun can dostum Hakan! 🎉<br>
+    Bu dünyaya senin gibi adamlar nadir gelir...
+</h1>
+
+<img id="cake" src="https://i.imgur.com/C7a0H6U.png" style="display:none;">
+
+<script>
+const balloon = document.getElementById("balloon");
+const msg = document.getElementById("msg");
+const cake = document.getElementById("cake");
+
+balloon.addEventListener("click", () => {
+    balloon.classList.add("burst");
+    setTimeout(() => balloon.style.display = "none", 200);
+
+    // Yazı çıkar
+    msg.style.display = "block";
+
+    // Pasta çıkar
+    cake.style.display = "block";
+
+    // Konfeti patlat
+    for (let i = 0; i < 120; i++) {
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.setProperty("--hue", Math.random() * 360);
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
+    }
+});
+</script>
+
+</body>
+</html>
