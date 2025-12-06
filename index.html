@@ -56,8 +56,8 @@
 </head>
 <body>
 
-<!-- Şarkı ekledim, sadece burası eklendi -->
-<audio autoplay loop>
+<!-- Şarkı eklendi, autoplay kaldırıldı -->
+<audio id="birthdaySong" loop>
     <source src="98ea63e1-7017-436e-81d4-246220b43212.mp3" type="audio/mpeg">
     Tarayıcınız ses dosyasını desteklemiyor.
 </audio>
@@ -74,6 +74,11 @@
     document.getElementById("startButton").onclick = function() {
         document.getElementById("startPage").style.display = "none";
         document.getElementById("birthdayPage").style.display = "block";
+
+        // Şarkıyı başlat
+        var song = document.getElementById("birthdaySong");
+        song.play();
+
         startConfetti();
     };
 
